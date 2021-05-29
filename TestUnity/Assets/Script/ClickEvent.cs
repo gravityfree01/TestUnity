@@ -46,8 +46,12 @@ public class ClickEvent : MonoBehaviour{
         btn1.GetComponent<Button>().interactable = false;
         btn2.GetComponent<Image>().color= Color.red;
         btn1.GetComponent<Image>().color = Color.white;
-        
+
+        btn1.gameObject.SetActive(false);
+        btn2.gameObject.SetActive(true);
+
         // 21-05-29 박성수 작성
+        if (!obj.gameObject.activeSelf) return;
         obj.gameObject.SetActive(false);
     }
 
@@ -65,7 +69,11 @@ public class ClickEvent : MonoBehaviour{
         btn1.GetComponent<Image>().color = Color.red;
         btn2.GetComponent<Image>().color = Color.white;
 
+        btn2.gameObject.SetActive(false);
+        btn1.gameObject.SetActive(true);
+
         // 21-05-29 박성수 작성
+        if (obj.gameObject.activeSelf) return;
         obj.gameObject.SetActive(true);
     }
 
