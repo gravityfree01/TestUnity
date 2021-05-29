@@ -14,7 +14,7 @@ public class ClickEvent : MonoBehaviour{
     enum Direction { LEFT, RIGHT, PAUSE};
     Direction dir = Direction.RIGHT;
 
-    float speed = 0.08f;
+    float speed = 10f;
         
     private void Start()
     {
@@ -42,16 +42,17 @@ public class ClickEvent : MonoBehaviour{
 
     }
 
-
+    // 21-05-29 speed * Time.fixedDeltaTime 추가 박성수 (핸드폰에 포딩했을시 시간차를 맞출수 있는 함수)
+    // float speed 값을 올려줘야함.(조절해서 확인할것)
     private void Update()
     {
         if (dir == Direction.RIGHT)
         {
-            obj.transform.position += new Vector3(speed, 0, 0);
+            obj.transform.position += new Vector3(speed * Time.fixedDeltaTime, 0, 0);
         }
         else if(dir == Direction.LEFT)
         {
-            obj.transform.position -= new Vector3(speed, 0, 0);
+            obj.transform.position -= new Vector3(speed * Time.fixedDeltaTime, 0, 0);
         }
         
     }
