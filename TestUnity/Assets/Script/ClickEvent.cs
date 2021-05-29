@@ -7,6 +7,9 @@ public class ClickEvent : MonoBehaviour{
     public GameObject btn1;
     public GameObject btn2;
 
+    // 21-05-29 총알 생성 박성수 작성
+    public GameObject bulletsStorage;
+    public GameObject bullets;
     private GameObject obj=null;
 
 
@@ -14,7 +17,7 @@ public class ClickEvent : MonoBehaviour{
     enum Direction { LEFT, RIGHT, PAUSE};
     Direction dir = Direction.RIGHT;
 
-    float speed = 10f;
+    //public float speed = 3f;
         
     private void Start()
     {
@@ -35,24 +38,28 @@ public class ClickEvent : MonoBehaviour{
     private bool  FindObject()
     {
         if (obj == null){
-            obj = GameObject.Find("Obj").gameObject;
+            obj = GameObject.Find("Charater").gameObject;
             return true;
         }
         return false;
 
     }
 
+
+    // 21-05-29 SpriteRenderer 사용하여 캐릭터라 좌우로 방향을 바꾸가며 이동하기
     // 21-05-29 speed * Time.fixedDeltaTime 추가 박성수 (핸드폰에 포딩했을시 시간차를 맞출수 있는 함수)
     // float speed 값을 올려줘야함.(조절해서 확인할것)
     private void Update()
     {
         if (dir == Direction.RIGHT)
         {
-            obj.transform.position += new Vector3(speed * Time.fixedDeltaTime, 0, 0);
+            //obj.transform.position += new Vector3(speed * Time.fixedDeltaTime, 0, 0);
+            obj.GetComponent<SpriteRenderer>().flipX = false;
         }
         else if(dir == Direction.LEFT)
         {
-            obj.transform.position -= new Vector3(speed * Time.fixedDeltaTime, 0, 0);
+            //obj.transform.position -= new Vector3(speed * Time.fixedDeltaTime, 0, 0);
+            obj.GetComponent<SpriteRenderer>().flipX = true;
         }
         
     }
@@ -138,14 +145,24 @@ public class ClickEvent : MonoBehaviour{
 
         // 21-05-29 PAUSE 버튼 생성 박성수 작성
 
-        dir = Direction.PAUSE;
+        //dir = Direction.PAUSE;
+
+        Vector3 pos = Vector3.zero;
+
+        if(dir == Direction.RIGHT)
+        {
+            pos = new Vector3(0.08f, 0, 0);
+        }
+        else if(dir == Direction.LEFT)
+        {
+            pos = new Vector3(-0.08f, 0, 0);
+        }    
 
 
+    // 21-05-30 총알 발사 진행중 미완성 박성수 작성
+       GameObject createBullet = Instantiate(bullets, pos, Quaternion.identity, bulletsStorage.transform);
+       createBullet.GetComponent<Rigidbody2D>().AddForce(pos, ForceMode2D.Impulse);
     }
-
-
-
-
 
 
 
