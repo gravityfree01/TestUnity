@@ -17,7 +17,7 @@ public class ClickEvent : MonoBehaviour{
     enum Direction { LEFT, RIGHT, PAUSE};
     Direction dir = Direction.RIGHT;
 
-    //public float speed = 3f;
+    public float speed = 3f;
         
     private void Start()
     {
@@ -151,17 +151,17 @@ public class ClickEvent : MonoBehaviour{
 
         if(dir == Direction.RIGHT)
         {
-            pos = new Vector3(0.08f, 0, 0);
+            pos = new Vector3(1.2f, 0, 0);
         }
         else if(dir == Direction.LEFT)
         {
-            pos = new Vector3(-0.08f, 0, 0);
-        }    
+            pos = new Vector3(-1.2f, 0, 0);
+        }
 
-
+       
     // 21-05-30 총알 발사 진행중 미완성 박성수 작성
        GameObject createBullet = Instantiate(bullets, pos, Quaternion.identity, bulletsStorage.transform);
-       createBullet.GetComponent<Rigidbody2D>().AddForce(pos, ForceMode2D.Impulse);
+       createBullet.GetComponent<Rigidbody2D>().AddForce(pos*10f, ForceMode2D.Impulse);
     }
 
 
